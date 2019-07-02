@@ -251,7 +251,7 @@ app.service('machineService', function($rootScope, $timeout, warningService) {
     sendCommandToSerialConnection("M112\n", true);
 
     // Send an ascii cancel command.
-    sendCommandToSerialConnection("\x18\n", true);
+    //sendCommandToSerialConnection("\x18\n", true);
   }
 
   // Return the "API" for this service.
