@@ -23,6 +23,10 @@ app.service('settingsService', function($rootScope) {
     workspace_port: "",
     workspace_baud: 9600,
     workspace_show_estop: true,
+    workspace_show_zmove: true,
+    workspace_show_getpos: true,
+    workspace_show_steppers: false,
+    workspace_show_laser: false,
     workspace_show_home: false,
     workspace_show_spindle: false,
     workspace_show_zero: false,
@@ -61,6 +65,18 @@ app.service('settingsService', function($rootScope) {
       if (s["workspace-show-estop"] !== undefined) {
         settings.workspace_show_estop = s["workspace-show-estop"];
       }
+      if (s["workspace_show_zmove"] !== undefined) {
+        settings.workspace_show_zmove = s["workspace_show_zmove"];
+      }
+      if (s["workspace_show_getpos"] !== undefined) {
+        settings.workspace_show_getpos = s["workspace_show_getpos"];
+      }
+      if (s["workspace_show_steppers"] !== undefined) {
+        settings.workspace_show_steppers = s["workspace_show_steppers"];
+      }
+      if (s["workspace_show_laser"] !== undefined) {
+        settings.workspace_show_laser = s["workspace_show_laser"];
+      }
       if (s["workspace-show-home"] !== undefined) {
         settings.workspace_show_home = s["workspace-show-home"];
       }
@@ -97,6 +113,10 @@ app.service('settingsService', function($rootScope) {
     s["workspace-port"] = settings.workspace_port;
     s["workspace-baud"] = settings.workspace_baud;
     s["workspace-show-estop"] = settings.workspace_show_estop;
+    s["workspace-show-zmove"] = settings.workspace_show_zmove;
+    s["workspace-show-getpos"] = settings.workspace_show_getpos;
+    s["workspace-show-steppers"] = settings.workspace_show_steppers;
+    s["workspace-show-laser"] = settings.workspace_show_laser;
     s["workspace-show-home"] = settings.workspace_show_home;
     s["workspace-show-spindle"] = settings.workspace_show_spindle;
     s["workspace-show-zero"] = settings.workspace_show_zero;
