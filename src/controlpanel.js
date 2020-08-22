@@ -13,6 +13,8 @@ app.controller('controlPanelCtrl', function ($scope, $timeout,
     $scope.logs = machineService.logs.slice();
 
     $scope.stepSize = 1;
+    $scope.laserPower = 0;
+    $scope.fanPower = 255;
 
     // Rendering takes a lot of time, so only update the logs from the source of
     // truth every once in a while.
@@ -148,8 +150,32 @@ app.controller('controlPanelCtrl', function ($scope, $timeout,
         return Math.pow(10, $scope.stepSize);
     }
 
+    $scope.getLaserPower = function () {
+        return $scope.laserPower;
+    }
+
+    $scope.getFanPower = function () {
+        return $scope.fanPower;
+    }
+
     $scope.incrementStepSize = function (amt) {
         $scope.stepSize = Math.max(-1, Math.min(2, $scope.stepSize + amt));
+    }
+
+    $scope.incrementLaserPower = function (pw) {
+        $scope.laserPower += pw;
+    }
+
+    $scope.powerOnLaser = function () {
+        machineService.enqueueCommands(['M3 S' + $scope.laserPower + '\n']);
+    }
+
+    $scope.incrementFanPower = function (pw) {
+        $scope.fanPower += pw;
+    }
+
+    $scope.powerOnFan = function () {
+        machineService.enqueueCommands(['M106 S' + $scope.fanPower + '\n']);
     }
 
     /**

@@ -42,6 +42,10 @@ app.service('fileService', function($rootScope) {
     });
   };
 
+  api.checkBounds = function() {
+    //TODO
+  };
+
   // This method is for handling drag-and-drop files.
   api.handleFileSelect = function(evt) {
     evt.stopPropagation();

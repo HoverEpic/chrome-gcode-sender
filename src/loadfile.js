@@ -36,6 +36,8 @@ app.controller('loadFileCtrl', function($scope, $state, hotkeys,
     console.time("renderGcode");
     // Run an analysis on the gcode to determine the appropriate bounds for rendering.
     var analysis = analyzeGcode(commandSequence);
+    //var bounds = [analysis.minPos, analysis.maxPos];
+    console.log(JSON.stringify(analysis));
 
     // Display the estimated execution time.
     var timeMs = analysis.estimatedExecutionTimeMin * 60 * 1000;

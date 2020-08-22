@@ -15,11 +15,19 @@
         <div class="control-section">
             <h4>Jog controls</h4>
             <div class="stack" ng-show="settings.workspace_show_getpos">
-                <button class="btn btn-default flex"
+                <button class="btn btn-sm btn-default flex"
                         ng-click="sendCommands(['M114\n'])"
                         ng-disabled="!machineService.isConnected">
                     Get position
                 </button>
+            </div>
+            <div class="distributed-box">
+                <button class="btn btn-sm btn-default flex"
+                        ng-click="sendCommands(['G90\n'])"
+                        ng-disabled="!machineService.isConnected">Absolute</button>
+                <button class="btn btn-sm btn-default flex"
+                        ng-click="sendCommands(['G91\n'])"
+                        ng-disabled="!machineService.isConnected">Relative</button>
             </div>
             <br>
 
@@ -98,7 +106,7 @@
                 <button class="btn btn-default flex"
                         ng-click="sendCommands(['G28 Y0\n'])"
                         ng-disabled="!machineService.isConnected">Home Y</button>
-                <button class="btn btn-default flex"
+                <button class="btn btn-default flex" ng-show="settings.workspace_show_zmove"
                         ng-click="sendCommands(['G28 Z0\n'])"
                         ng-disabled="!machineService.isConnected">Home Z</button>
             </div>
@@ -112,7 +120,7 @@
                 <button class="btn btn-default flex"
                         ng-click="sendCommands(['G92 Y0\n'])"
                         ng-disabled="!machineService.isConnected">Zero Y</button>
-                <button class="btn btn-default flex"
+                <button class="btn btn-default flex" ng-show="settings.workspace_show_zmove"
                         ng-click="sendCommands(['G92 Z0\n'])"
                         ng-disabled="!machineService.isConnected">Zero Z</button>
             </div>
@@ -142,13 +150,55 @@
 
         <div class="control-section" ng-show="settings.workspace_show_laser">
             <h4>Laser controls</h4>
+            <div class="form-group">
+                <span>
+                    Laser <small>{{getLaserPower()}}/255</small>
+                </span>
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" id="btn-laserpower-down" type="button"
+                                ng-click="incrementLaserPower(-1)" ng-disabled="!machineService.isConnected">-</button>
+                    </span>
+                    <input type="range" name="laserPower" id="input-laserPower" min="0" max="255" class="form-control"
+                           ng-model="laserPower" ng-disabled="!machineService.isConnected" value="{{getLaserPower()}}">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" id="btn-laserpower-up" type="button"
+                                ng-click="incrementLaserPower(1)" ng-disabled="!machineService.isConnected">+</button>
+                    </span>
+                </div>
+            </div>
             <div class="distributed-box">
                 <button class="btn btn-default flex"
-                        ng-click="sendCommands(['M3\n'])" ng-disabled="!machineService.isConnected">ON</button>
-                <!--<button class="btn btn-default flex"
-                        ng-click="sendCommands(['M4\n'])" ng-disabled="!machineService.isConnected">↺</button>-->
+                        ng-click="powerOnLaser()" ng-disabled="!machineService.isConnected">ON</button>
                 <button class="btn btn-default flex"
                         ng-click="sendCommands(['M5\n'])" ng-disabled="!machineService.isConnected">OFF</button>
+            </div>
+        </div>
+
+        <div class="control-section">
+            <h4>Fan controls</h4>
+            <div class="form-group">
+                <span>
+                    Laser <small>{{getFanPower()}}/255</small>
+                </span>
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" id="btn-fanpower-down" type="button"
+                                ng-click="incrementFanPower(-1)" ng-disabled="!machineService.isConnected">-</button>
+                    </span>
+                    <input type="range" name="fanPower" id="input-fanPower" min="0" max="255" class="form-control"
+                           ng-model="fanPower" ng-disabled="!machineService.isConnected" value="{{getFanPower()}}">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" id="btn-fanpower-up" type="button"
+                                ng-click="incrementFanPower(1)" ng-disabled="!machineService.isConnected">+</button>
+                    </span>
+                </div>
+            </div>
+            <div class="distributed-box">
+                <button class="btn btn-default flex"
+                        ng-click="powerOnFan()" ng-disabled="!machineService.isConnected">ON</button>
+                <button class="btn btn-default flex"
+                        ng-click="sendCommands(['M107\n'])" ng-disabled="!machineService.isConnected">OFF</button>
             </div>
         </div>
     </span>
